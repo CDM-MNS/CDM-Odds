@@ -9,4 +9,5 @@ public interface IOddsRepository
     List<OddsEntity> GetAllOdds();
     OddsEntity GetOddsById(int id);
     Task UpdateOdds(UpdateOddsDto oddsDto, int id);
+    OddsEntity GetOddsByMatchId(int matchId);
 }

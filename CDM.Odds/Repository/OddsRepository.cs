@@ -1,11 +1,11 @@
 using CDM.Match.DTO;
 using CDM.Odds.Models;
+using CMD.Odds.Messaging;
 
 namespace CDM.Match.Repository;
 
 public class OddsRepository(OddDbContext context) : IOddsRepository
 {
-
     public async Task CreateOddsAsync(CreateOddsDto oddsDto)
     {
         OddsEntity odds = new OddsEntity()
@@ -20,7 +20,7 @@ public class OddsRepository(OddDbContext context) : IOddsRepository
         await context.Odds.AddAsync(odds);
         await context.SaveChangesAsync();
     }
-
+    
     public List<OddsEntity> GetAllOdds()
     {
         return context.Odds.ToList();
@@ -29,6 +29,12 @@ public class OddsRepository(OddDbContext context) : IOddsRepository
     public OddsEntity GetOddsById(int id)
     {
         return context.Odds.Find(id);
+    }
+
+    public OddsEntity GetOddsByMatchId(int matchId)
+    {
+        
+        return context.Odds.FirstOrDefault(o => o.MatchId == matchId);
     }
 
     public async Task UpdateOdds(UpdateOddsDto oddsDto, int id)

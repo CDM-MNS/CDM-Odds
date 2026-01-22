@@ -1,5 +1,6 @@
 using CDM.Match.DTO;
 using CDM.Match.Repository;
+using CMD.Odds.Messaging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CDM.Match.Controllers;
@@ -12,6 +13,13 @@ public class OddsController(IOddsRepository oddsRepository) : ControllerBase
     public IActionResult GetOddsById(int id)
     {
         var match = oddsRepository.GetOddsById(id);
+        return Ok(match);
+    }
+    
+    [HttpGet("match/{id}")]
+    public IActionResult GetOddsByMatchId(int id)
+    {
+        var match = oddsRepository.GetOddsByMatchId(id);
         return Ok(match);
     }
     
@@ -35,4 +43,5 @@ public class OddsController(IOddsRepository oddsRepository) : ControllerBase
         await oddsRepository.UpdateOdds(oddsDto, id);
         return Ok($"Odds {id} updated");
     }
+    
 }
