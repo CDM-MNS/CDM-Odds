@@ -20,9 +20,10 @@ public class GetOddsConsumer : IConsumer<GetOddsDTO>
     
     public async Task Consume(ConsumeContext<GetOddsDTO> context)
     {
+        Console.WriteLine(context.Message);
         Console.WriteLine(context.Message.OddId);
         var id = context.Message.OddId;
         var result = _oddsRepository.GetOddsById(id);
-        await _rabbitMQService.PublishAsync("get-odds-out", result, "get.oods");
+        await _rabbitMQService.PublishAsync("get-odds", result, "get.oods");
     }
 }

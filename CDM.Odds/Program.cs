@@ -53,7 +53,7 @@ builder.Services.AddMassTransit(x =>
             return options;
         });
         
-        cfg.ReceiveEndpoint("get-odds-in", e =>
+        cfg.ReceiveEndpoint("get-odds", e =>
         {
             e.UseRawJsonDeserializer();
             e.ConfigureConsumer<GetOddsConsumer>(context);
